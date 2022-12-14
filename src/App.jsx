@@ -12,7 +12,7 @@ const App = () => {
                     <h1 className="text-3xl font-semibold uppercase tracking-[0.3rem] text-white">
                         Todo
                     </h1>
-                    <button>luna</button>
+                    <button><Moon/></button>
                 </div>
 
                 <form className="flex items-center gap-4 px-4 py-3 mt-8 overflow-hidden bg-white rounded-lg">
