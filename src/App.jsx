@@ -6,26 +6,36 @@ import TodoFilter from "./components/TodoFilter";
 import TodoList from "./components/TodoList";
 
 const initialStateTodos = [
-    {id: 1, title: "Go to the gym 1", completed: true},
-    {id: 2, title: "Go to the gym 2", completed: false},
-    {id: 3, title: "Go to the gym 3", completed: true},
-    {id: 4, title: "Go to the gym 4", completed: false},
-    {id: 5, title: "Go to the gym 5", completed: false},
-
-]
+    { id: 1, title: "Go to the gym 1", completed: true },
+    { id: 2, title: "Go to the gym 2", completed: false },
+    { id: 3, title: "Go to the gym 3", completed: true },
+    { id: 4, title: "Go to the gym 4", completed: false },
+    { id: 5, title: "Go to the gym 5", completed: true },
+];
 
 const App = () => {
-
-    const [todos, setTodos] = useState(initialStateTodos)
+    const [todos, setTodos] = useState(initialStateTodos);
 
     const createTodo = (title) => {
         const newTodo = {
-            id:Date.now(),
+            id: Date.now(),
             title: title.trim(),
             completed: false,
-        }
+        };
         setTodos([...todos, newTodo]);
-    }
+    };
+
+    const removeTodo = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
+    const updateTodo = (id) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
 
     return (
         <div
@@ -34,8 +44,12 @@ const App = () => {
         >
             <Header />
             <main className="container mx-auto mt-8 px-4 ">
-                <TodoCreate createTodo={createTodo}/>
-                <TodoList todos={todos}/>
+                <TodoCreate createTodo={createTodo} />
+                <TodoList
+                    todos={todos}
+                    removeTodo={removeTodo}
+                    updateTodo={updateTodo}
+                />
                 <TodoComputed />
                 <TodoFilter />
             </main>
