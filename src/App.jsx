@@ -37,6 +37,31 @@ const App = () => {
         );
     };
 
+    const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
+
+    const clearCompleted = () => {
+        setTodos(todos.filter((todo) => !todo.completed));
+    };
+
+
+
+    const [filter, setFilter] = useState("all");
+
+    const changeFilter = (filter) => setFilter(filter);
+
+    const filteredTodos = () => {
+        switch (filter) {
+            case "all":
+                return todos;
+            case "active":
+                return todos.filter((todo) => !todo.completed);
+            case "completed":
+                return todos.filter((todo) => todo.completed);
+            default:
+                return todos;
+        }
+    };
+
     return (
         <div
             className="min-h-screen
@@ -46,12 +71,15 @@ const App = () => {
             <main className="container mx-auto mt-8 px-4 ">
                 <TodoCreate createTodo={createTodo} />
                 <TodoList
-                    todos={todos}
+                    todos={filteredTodos()}
                     removeTodo={removeTodo}
                     updateTodo={updateTodo}
                 />
-                <TodoComputed />
-                <TodoFilter />
+                <TodoComputed
+                    computedItemsLeft={computedItemsLeft}
+                    clearCompleted={clearCompleted}
+                />
+                <TodoFilter changeFilter={changeFilter} filter={filter}/>
             </main>
 
             <footer className="mt-8 text-center text-gray-600">

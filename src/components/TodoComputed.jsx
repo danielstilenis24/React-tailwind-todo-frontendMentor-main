@@ -1,8 +1,8 @@
-const TodoComputed = () => {
+const TodoComputed = ({computedItemsLeft , clearCompleted}) => {
   return(
     <section className="flex justify-between rounded-b-md bg-white px-4 py-4">
-                    <span className="text-gray-500">5 items left</span>
-                    <button className="text-gray-500">Clear completed</button>
+                    <span className="text-gray-500">{computedItemsLeft} items left</span>
+                    <button className="text-gray-500" onClick={clearCompleted}>Clear completed</button>
                 </section>
   )
 }
